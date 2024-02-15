@@ -1,30 +1,28 @@
 # tests/test_calculator.py
 import pytest
 
-from calculator.calculator import add, subtract, multiply, divide
+from calculator.calculator import Calculator, Calculation
 
-# Tests for addition
-def test_add():
-    assert add(1, 2) == 3
-    assert add(4.5, 5.5) == 10
+# Tests for Calculation class using instance methods
 
-# Tests for subtraction
-def test_subtract():
-    assert subtract(5, 3) == 2
-    assert subtract(10, 5.5) == 4.5
+def test_calculation_add():
+    calc = Calculation(1, 2)
+    assert calc.add() == 3
 
-# Tests for multiplication
-def test_multiply():
-    assert multiply(3, 4) == 12
-    assert multiply(2.5, 4) == 10
+def test_calculation_subtract():
+    calc = Calculation(5, 3)
+    assert calc.subtract() == 2
 
-# Tests for division
-def test_divide():
-    assert divide(8, 4) == 2
-    assert divide(9, 3) == 3
+def test_calculation_multiply():
+    calc = Calculation(4, 3)
+    assert calc.multiply() == 12
 
-# Test for division by zero should raise an error
-def test_divide_by_zero():
+def test_calculation_divide():
+    calc = Calculation(10, 2)
+    assert calc.divide() == 5
+
+def test_calculation_divide_by_zero():
+    calc = Calculation(10, 0)
     with pytest.raises(ValueError):
-        divide(10, 0)
+        calc.divide()
 
