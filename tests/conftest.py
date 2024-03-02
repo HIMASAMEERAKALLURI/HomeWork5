@@ -1,7 +1,7 @@
 # tests/conftest.py
 import pytest
 from faker import Faker
-from calculator.calculator import Calculation
+from calculator.calculator import Calculator
 
 # Command line option for number of records
 def pytest_addoption(parser):
@@ -18,21 +18,14 @@ def num_records(request):
 @pytest.fixture
 def calculation_records(faker, num_records):
     records = []
+    calc = Calculator()
     for _ in range(num_records):
         a = faker.random_number(digits=2, fix_len=True)
         b = faker.random_number(digits=2, fix_len=True)
         operation = faker.random_element(elements=('add', 'subtract', 'multiply', 'divide'))
         expected = None
-        calc = Calculation(a, b)
         try:
-            if operation == 'add':
-                expected = calc.add()
-            elif operation == 'subtract':
-                expected = calc.subtract()
-            elif operation == 'multiply':
-                expected = calc.multiply()
-            elif operation == 'divide':
-                expected = 'ValueError' if b == 0 else calc.divide()
+            expected = calc.execute_command(operation, a, b)
         except ValueError:
             expected = 'ValueError'
         records.append((a, b, operation, expected))
