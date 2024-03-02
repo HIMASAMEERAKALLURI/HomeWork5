@@ -63,8 +63,7 @@ def run_calculator(input_values):
         # This will join all print arguments into a single string
         print_output = ' '.join(map(str, args))
         outputs.append(print_output)
-        # Remove or comment out the following line to prevent recursion
-        # print(f"Mock print called with: {print_output}")  # Diagnostic print
+        
 
     with patch('builtins.input', side_effect=mock_input), patch('builtins.print', side_effect=mock_print):
         main()
